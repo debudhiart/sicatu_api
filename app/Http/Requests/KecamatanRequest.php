@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DesaRequest extends FormRequest
+class KecamatanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class DesaRequest extends FormRequest
     public function rules()
     {
         return [
-            'kecamatan_id' => ['required','max : 255'],
-            'nama_desa' => ['required','max : 255'] ,
-
+            //
+            'kabupaten_kota_id' => ['required','max : 255'],
+            'nama_kecamatan' => ['required','max : 255'] ,
         ];
     }
 }

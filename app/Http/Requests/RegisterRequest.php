@@ -25,11 +25,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             'nama' => ['required','max : 255'] ,
-            // 'roles_id' => ['required','max : 255'],
-            // 'desa_id' => ['required','max : 255'],
+            'roles_id' => ['required','max : 255'],
+            'desa_id' => ['required','max : 255'],
             'email' => ['required', 'unique:users',],
             'password' => ['required','max : 255'] ,
-            // 'password_confirmed' => ['required','same:password'],
+            'password_confirmed' => ['required','same:password'],
             'address' => ['required'], 
         ];
     }

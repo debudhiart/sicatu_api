@@ -15,6 +15,9 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\JadwalPelangganController;
 use App\Http\Controllers\BayarController;
 use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\ProvinsiController;
+use App\Http\Controllers\KabupatenKotaController;
+use App\Http\Controllers\KecamatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,5 +132,26 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/keluhan/verification-keluhan/{id}', [KeluhanController::class,'verificationKeluhan']);
     Route::post('/keluhan/respon-keluhan/{id}', [KeluhanController::class,'responKeluhan']);
     Route::post('/keluhan/upload-foto-bukti/{id}', [KeluhanController::class,'uploadFotoBukti']);
+
+    //Route CRUD Data Provinsi
+    Route::get('/provinsi', [ProvinsiController::class,'createProvinsi']);
+    Route::get('/provinsi/{id}', [ProvinsiController::class,'viewProvinsi']);
+    Route::post('/provinsi/store', [ProvinsiController::class,'storeProvinsi']);
+    Route::post('/provinsi/delete/{id}', [ProvinsiController::class,'deleteProvinsi']);
+    Route::post('/provinsi/update/{id}', [ProvinsiController::class,'updateProvinsi']);
+
+     //Route CRUD Data Kabuaten Kota
+    Route::get('/kabupaten-kota', [KabupatenKotaController::class,'createKabupatenKota']);
+    Route::get('/kabupaten-kota/{id}', [KabupatenKotaController::class,'viewKabupatenKota']);
+    Route::post('/kabupaten-kota/store', [KabupatenKotaController::class,'storeKabupatenKota']);
+    Route::post('/kabupaten-kota/delete/{id}', [KabupatenKotaController::class,'deleteKabupatenKota']);
+    Route::post('/kabupaten-kota/update/{id}', [KabupatenKotaController::class,'updateKabupatenKota']);
+    
+    //Route CRUD Data Kecamatan
+    Route::get('/kecamatan', [KecamatanController::class,'createKecamatan']);
+    Route::get('/kecamatan/{id}', [KecamatanController::class,'viewKecamatan']);
+    Route::post('/kecamatan/store', [KecamatanController::class,'storeKecamatan']);
+    Route::post('/kecamatan/delete/{id}', [KecamatanController::class,'deleteKecamatan']);
+    Route::post('/kecamatan/update/{id}', [KecamatanController::class,'updateKecamatan']);
 
 });

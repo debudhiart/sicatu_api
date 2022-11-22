@@ -13,6 +13,7 @@ class Desa extends Model
 
     protected $fillable = [
         'nama_desa',
+        'kecamatan_id'
     ];
 
 
@@ -39,5 +40,9 @@ class Desa extends Model
     }
     public function jadwalPetugas(){
         return $this->hasMany(JadwalPetugas::class) ;
+    }
+    public function kecamatan(){
+        return $this->belongsTo(Desa::class,"kecamatan_id", "kecamatan_id");
+
     }
 }

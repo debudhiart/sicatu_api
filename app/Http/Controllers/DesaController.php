@@ -37,6 +37,7 @@ class DesaController extends Controller
 
         $desaRequest= $request->validated();
         $data= Desa::create($desaRequest);
+        // dd( $desaRequest);
 
         return response([
             'message'=>'Successfully Add New Desa.',
