@@ -19,8 +19,9 @@ class JabatanController extends Controller
         }
         // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $jabatan
-        ]);
+        ], 200);
     }
 
     public function viewJabatan($id){
@@ -28,6 +29,7 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $jabatan
         ]);
     }

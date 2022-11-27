@@ -13,27 +13,36 @@ class KabupatenKotaController extends Controller
 {
     //
     public function createKabupatenKota(){
-
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        if(Auth::user()->roles_id == 1){
-            $kabupatenKota = KabupatenKota::with("provinsi")->get();
-
-        }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4 || Auth::user()->roles_id == 5){
-
-
-            $id_desa = Desa::where("desa_id", Auth::user()->desa_id)->first();
-            $id_kecamatan = Kecamatan::where("kecamatan_id", $id_desa->kecamatan_id)->first();
-            // $id_kabupaten_kota = KabupatenKota::where("kabupaten_kota_id", $id_kecamatan->kabupaten_kota_id)->first();
-            
-            // id_kecamatan->kecamatan_id
-
-            $kabupatenKota = KabupatenKota::where("kabupaten_kota_id",$id_kecamatan->kabupaten_kota_id)->with("provinsi")->get();
-            // dd($id_kecamatan->kabupaten_kota_id);
-        }
-        // dd($desa);
+        $kabupatenKota = KabupatenKota::all();
+        // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $kabupatenKota
-        ]);
+        ], 200);
+
+
+        //----- Code view yang bener
+
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        // if(Auth::user()->roles_id == 1){
+        //     $kabupatenKota = KabupatenKota::with("provinsi")->get();
+
+        // }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4 || Auth::user()->roles_id == 5){
+
+
+        //     $id_desa = Desa::where("desa_id", Auth::user()->desa_id)->first();
+        //     $id_kecamatan = Kecamatan::where("kecamatan_id", $id_desa->kecamatan_id)->first();
+        //     // $id_kabupaten_kota = KabupatenKota::where("kabupaten_kota_id", $id_kecamatan->kabupaten_kota_id)->first();
+            
+        //     // id_kecamatan->kecamatan_id
+
+        //     $kabupatenKota = KabupatenKota::where("kabupaten_kota_id",$id_kecamatan->kabupaten_kota_id)->with("provinsi")->get();
+        //     // dd($id_kecamatan->kabupaten_kota_id);
+        // }
+        // // dd($desa);
+        // return response([
+        //     'data'=> $kabupatenKota
+        // ]);
     }
 
     public function viewKabupatenKota($id){

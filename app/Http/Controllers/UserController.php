@@ -20,8 +20,9 @@ class UserController extends Controller
         $user = User::with("desa")->with('role')->get();
         // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $user
-        ]);
+        ], 200);
     }
 
     public function storeUser(RegisterRequest $request){
@@ -37,9 +38,23 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function updateUser (RegisterRequest $request, $id){
+        // $this-> authorize('super-admin-operator');
+        // $desaRequest= $request->validated();
+        
+        $user = User::find($id);
+        $user ->update($request->all());
+        // dd($jabatan);
+        return response([
+            'message'=>'Successfully Update User.',
+            'success'=> true,
+            'data' => $user,
+        ], 200);
+    }
+
     //
     public function deleteUser($id){
-        $this-> authorize('super-admin');
+        // $this-> authorize('super-admin');
         $user = User::find($id);
         // dd($user);
         $user->delete();

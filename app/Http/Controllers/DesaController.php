@@ -11,21 +11,31 @@ class DesaController extends Controller
 {
     //
     public function createDesa(){
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        if(Auth::user()->roles_id == 1){
-            $desa = Desa::all();
-        }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4 || Auth::user()->roles_id == 5){
-            $desa = Desa::where("desa_id",Auth::user()->desa_id)->get();
-        }
-        // dd($desa);
+
+        $desa = Desa::all();
+        // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $desa
-        ]);
+        ], 200);
+
+
+        //----- Code view yang bener
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        // if(Auth::user()->roles_id == 1){
+        //     $desa = Desa::with("kecamatan")->get();
+        // }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4 || Auth::user()->roles_id == 5){
+        //     $desa = Desa::where("desa_id",Auth::user()->desa_id)->with('kecamatan')->get();
+        // }
+        // // dd($desa);
+        // return response([
+        //     'data'=> $desa
+        // ]);
     }
 
     public function viewDesa($id){
         $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $desa = Desa::find($id);
+        $desa = Desa::with('kecamatan')->find($id);
         // dd($desa);
         return response([
             'data'=> $desa

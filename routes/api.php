@@ -34,6 +34,7 @@ use App\Http\Controllers\KecamatanController;
 //     return $request->user();
 // });
 Route::post('/register',[AuthController::class,'register']);
+
 Route::post('/login',[AuthController::class,'login']);
 
 
@@ -41,6 +42,16 @@ Route::get('/user', [UserController::class,'createUser']);
 Route::post('/user/store', [UserController::class,'storeUser']);
 
 // Route::post('/logout',[AuthController::class,'logout']);
+
+//Route CRUD Data Desa
+Route::get('/desa', [DesaController::class,'createDesa']);
+Route::get('/desa/{id}', [DesaController::class,'viewDesa']);
+Route::post('/desa/store', [DesaController::class,'storeDesa']);
+Route::post('/desa/delete/{id}', [DesaController::class,'deleteDesa']);
+Route::post('/desa/update/{id}', [DesaController::class,'updateDesa']);
+
+
+
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     
@@ -50,12 +61,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     //Route CRUD User
     Route::post('/user/delete/{id}', [UserController::class,'deleteUser']);
     
-    //Route CRUD Data Desa
-    Route::get('/desa', [DesaController::class,'createDesa']);
-    Route::get('/desa/{id}', [DesaController::class,'viewDesa']);
-    Route::post('/desa/store', [DesaController::class,'storeDesa']);
-    Route::post('/desa/delete/{id}', [DesaController::class,'deleteDesa']);
-    Route::post('/desa/update/{id}', [DesaController::class,'updateDesa']);
     
     //Route CRUD Data Jabatan
     Route::get('/jabatan', [JabatanController::class,'createJabatan']);
@@ -133,25 +138,25 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/keluhan/respon-keluhan/{id}', [KeluhanController::class,'responKeluhan']);
     Route::post('/keluhan/upload-foto-bukti/{id}', [KeluhanController::class,'uploadFotoBukti']);
 
-    //Route CRUD Data Provinsi
-    Route::get('/provinsi', [ProvinsiController::class,'createProvinsi']);
-    Route::get('/provinsi/{id}', [ProvinsiController::class,'viewProvinsi']);
-    Route::post('/provinsi/store', [ProvinsiController::class,'storeProvinsi']);
-    Route::post('/provinsi/delete/{id}', [ProvinsiController::class,'deleteProvinsi']);
-    Route::post('/provinsi/update/{id}', [ProvinsiController::class,'updateProvinsi']);
-
-     //Route CRUD Data Kabuaten Kota
-    Route::get('/kabupaten-kota', [KabupatenKotaController::class,'createKabupatenKota']);
-    Route::get('/kabupaten-kota/{id}', [KabupatenKotaController::class,'viewKabupatenKota']);
-    Route::post('/kabupaten-kota/store', [KabupatenKotaController::class,'storeKabupatenKota']);
-    Route::post('/kabupaten-kota/delete/{id}', [KabupatenKotaController::class,'deleteKabupatenKota']);
-    Route::post('/kabupaten-kota/update/{id}', [KabupatenKotaController::class,'updateKabupatenKota']);
     
-    //Route CRUD Data Kecamatan
-    Route::get('/kecamatan', [KecamatanController::class,'createKecamatan']);
-    Route::get('/kecamatan/{id}', [KecamatanController::class,'viewKecamatan']);
-    Route::post('/kecamatan/store', [KecamatanController::class,'storeKecamatan']);
-    Route::post('/kecamatan/delete/{id}', [KecamatanController::class,'deleteKecamatan']);
-    Route::post('/kecamatan/update/{id}', [KecamatanController::class,'updateKecamatan']);
-
 });
+//Route CRUD Data Provinsi
+Route::get('/provinsi', [ProvinsiController::class,'createProvinsi']);
+Route::get('/provinsi/{id}', [ProvinsiController::class,'viewProvinsi']);
+Route::post('/provinsi/store', [ProvinsiController::class,'storeProvinsi']);
+Route::post('/provinsi/delete/{id}', [ProvinsiController::class,'deleteProvinsi']);
+Route::post('/provinsi/update/{id}', [ProvinsiController::class,'updateProvinsi']);
+
+ //Route CRUD Data Kabuaten Kota
+Route::get('/kabupaten-kota', [KabupatenKotaController::class,'createKabupatenKota']);
+Route::get('/kabupaten-kota/{id}', [KabupatenKotaController::class,'viewKabupatenKota']);
+Route::post('/kabupaten-kota/store', [KabupatenKotaController::class,'storeKabupatenKota']);
+Route::post('/kabupaten-kota/delete/{id}', [KabupatenKotaController::class,'deleteKabupatenKota']);
+Route::post('/kabupaten-kota/update/{id}', [KabupatenKotaController::class,'updateKabupatenKota']);
+
+//Route CRUD Data Kecamatan
+Route::get('/kecamatan', [KecamatanController::class,'createKecamatan']);
+Route::get('/kecamatan/{id}', [KecamatanController::class,'viewKecamatan']);
+Route::post('/kecamatan/store', [KecamatanController::class,'storeKecamatan']);
+Route::post('/kecamatan/delete/{id}', [KecamatanController::class,'deleteKecamatan']);
+Route::post('/kecamatan/update/{id}', [KecamatanController::class,'updateKecamatan']);
