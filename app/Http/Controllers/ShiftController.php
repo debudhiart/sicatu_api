@@ -11,7 +11,7 @@ class ShiftController extends Controller
 {
     //
     public function createShift(){
-        $this-> authorize('super-admin');
+        // $this-> authorize('super-admin');
 
         $shift = Shift::all();
         // dd($jabatan);

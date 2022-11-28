@@ -43,12 +43,13 @@ class ProvinsiController extends Controller
     }
 
     public function viewProvinsi($id){
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
         $provinsi = Provinsi::find($id);
         // dd($desa);
         return response([
+            'success'=> true,
             'data'=> $provinsi
-        ]);
+        ], 200);
     }
 
     public function storeProvinsi(ProvinsiRequest $request){

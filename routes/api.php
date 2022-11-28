@@ -53,7 +53,7 @@ Route::post('/desa/update/{id}', [DesaController::class,'updateDesa']);
 
 
 
-Route::group(['middleware'=>['auth:sanctum']],function(){
+// Route::group(['middleware'=>['auth:sanctum']],function(){
     
     Route::post('/logout', [AuthController::class,'logout']);
     
@@ -139,7 +139,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('/keluhan/upload-foto-bukti/{id}', [KeluhanController::class,'uploadFotoBukti']);
 
     
-});
+// });
 //Route CRUD Data Provinsi
 Route::get('/provinsi', [ProvinsiController::class,'createProvinsi']);
 Route::get('/provinsi/{id}', [ProvinsiController::class,'viewProvinsi']);

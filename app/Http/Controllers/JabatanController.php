@@ -11,17 +11,26 @@ use Illuminate\Support\Facades\Auth;
 class JabatanController extends Controller
 {
     public function createJabatan(){
-        $this-> authorize('super-admin-operator-perangkat-desa');
-        if (Auth::user()->roles_id == 1){
-            $jabatan = Jabatan::with("desa")->get();
-        } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
-            $jabatan = Jabatan::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
-        }
+
+        $jabatan = Jabatan::with("desa")->get();
         // dd($jabatan);
         return response([
             'success'=> true,
             'data'=> $jabatan
         ], 200);
+        
+        // ----- Code view yang bener
+        // $this-> authorize('super-admin-operator-perangkat-desa');
+        // if (Auth::user()->roles_id == 1){
+        //     $jabatan = Jabatan::with("desa")->get();
+        // } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
+        //     $jabatan = Jabatan::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
+        // }
+        // // dd($jabatan);
+        // return response([
+        //     'success'=> true,
+        //     'data'=> $jabatan
+        // ], 200);
     }
 
     public function viewJabatan($id){

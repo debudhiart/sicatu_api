@@ -22,7 +22,7 @@ class JadwalPetugas extends Model
     ];
 
     public function petugas(){
-        return $this->hasMbelongsToany(Petugas::class,"petugas_id","petugas_id") ;
+        return $this->belongsTo(Petugas::class,"petugas_id","petugas_id") ;
     }
     public function shift(){
         return $this->belongsTo(Shift::class,"shift_id","shift_id") ;
