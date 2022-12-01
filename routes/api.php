@@ -60,6 +60,7 @@ Route::post('/desa/update/{id}', [DesaController::class,'updateDesa']);
     
     //Route CRUD User
     Route::post('/user/delete/{id}', [UserController::class,'deleteUser']);
+    Route::get('/user/{id}', [UserController::class,'viewUser']);
     
     
     //Route CRUD Data Jabatan
