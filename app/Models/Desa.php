@@ -42,7 +42,7 @@ class Desa extends Model
         return $this->hasMany(JadwalPetugas::class) ;
     }
     public function kecamatan(){
-        return $this->belongsTo(Desa::class,"kecamatan_id", "kecamatan_id");
+        return $this->belongsTo(Kecamatan::class,"kecamatan_id", "kecamatan_id");
 
     }
 }

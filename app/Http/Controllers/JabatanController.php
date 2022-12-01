@@ -34,8 +34,8 @@ class JabatanController extends Controller
     }
 
     public function viewJabatan($id){
-        $this-> authorize('super-admin-operator-perangkat-desa');
-        $jabatan = Jabatan::find($id);
+        // $this-> authorize('super-admin-operator-perangkat-desa');
+        $jabatan = Jabatan::where("jabatan_id", $id)->with("desa")->first();
         // dd($jabatan);
         return response([
             'success'=> true,

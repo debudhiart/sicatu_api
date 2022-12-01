@@ -25,6 +25,15 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function viewUser($id){
+        // $this-> authorize('super-admin');
+        $user = User::where("users_id", $id)->with('role')->with("desa")->with('petugas')->with('pelanggan')->with('operator')->first();
+        // dd($user);
+        return response([
+            'data'=> $user
+        ]);
+    }
+
     public function storeUser(RegisterRequest $request){
         // $this->authorize('super-admin');
 

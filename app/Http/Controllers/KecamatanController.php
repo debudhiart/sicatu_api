@@ -46,8 +46,8 @@ class KecamatanController extends Controller
     }
 
     public function viewKecamatan($id){
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $kecamatan = Kecamatan::find($id);
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        $kecamatan = Kecamatan::where("kecamatan_id", $id)->with("kabupatenKota.provinsi")->first();
         // dd($desa);
         return response([
             'data'=> $kecamatan

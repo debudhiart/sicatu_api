@@ -34,8 +34,8 @@ class DesaController extends Controller
     }
 
     public function viewDesa($id){
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $desa = Desa::with('kecamatan')->find($id);
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        $desa = Desa::where("desa_id", $id)->with("kecamatan.kabupatenKota.provinsi")->first();
         // dd($desa);
         return response([
             'data'=> $desa

@@ -11,27 +11,34 @@ use App\Models\Pelanggan;
 class JenisLanggananController extends Controller
 {
     public function createJenisLangganan(){
-        $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
-        if(Auth::user()->roles_id == 1){
-            $jenisLangganan = JenisLangganan::with("desa")->get();
-
-        }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
-            $jenisLangganan = JenisLangganan::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
-
-        }else if (Auth::user()->roles_id == 5){
-            $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
-            
-            // dd($id_pelanggan);
-            
-            $jenisLangganan = JenisLangganan::with("desa")
-            ->where("desa_id",Auth::user()->desa_id)
-            ->where("jenis_langganan_id", $id_pelanggan->jenis_langganan_id)->get();
-
-        }
+        $jenisLangganan = JenisLangganan::with("desa")->get();
         // dd($jabatan);
         return response([
+            'success'=> true,
             'data'=> $jenisLangganan
-        ]);
+        ], 200);
+        
+        // $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
+        // if(Auth::user()->roles_id == 1){
+        //     $jenisLangganan = JenisLangganan::with("desa")->get();
+
+        // }else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
+        //     $jenisLangganan = JenisLangganan::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
+
+        // }else if (Auth::user()->roles_id == 5){
+        //     $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
+            
+        //     // dd($id_pelanggan);
+            
+        //     $jenisLangganan = JenisLangganan::with("desa")
+        //     ->where("desa_id",Auth::user()->desa_id)
+        //     ->where("jenis_langganan_id", $id_pelanggan->jenis_langganan_id)->get();
+
+        // }
+        // // dd($jabatan);
+        // return response([
+        //     'data'=> $jenisLangganan
+        // ]);
     }
 
     public function viewJenisLangganan($id){

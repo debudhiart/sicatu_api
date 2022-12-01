@@ -32,4 +32,7 @@ class Keluhan extends Model
     public function desa(){
         return $this->belongsTo(Desa::class, "desa_id", "desa_id");
     }
+    public function pelanggan(){
+        return $this->belongsTo(Pelanggan::class, "pelanggan_id", "pelanggan_id");
+    }
 }

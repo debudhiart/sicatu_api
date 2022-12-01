@@ -57,4 +57,13 @@ class User extends Authenticatable
         return $this->belongsTo(Desa::class, "desa_id", "desa_id");
 
     }
+    public function petugas(){
+        return $this->hasOne(Petugas::class,"users_id", "users_id") ;
+    }
+    public function operator(){
+        return $this->hasOne(Operator::class,"users_id", "users_id") ;
+    }
+    public function pelanggan(){
+        return $this->hasOne(Pelanggan::class, "users_id", "users_id") ;
+    }
 }

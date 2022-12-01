@@ -46,8 +46,8 @@ class KabupatenKotaController extends Controller
     }
 
     public function viewKabupatenKota($id){
-        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $kabupatenKota = KabupatenKota::find($id);
+        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        $kabupatenKota = KabupatenKota::where("kabupaten_kota_id", $id)->with("provinsi")->first();
         // dd($desa);
         return response([
             'data'=> $kabupatenKota
