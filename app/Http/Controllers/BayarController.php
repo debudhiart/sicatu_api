@@ -11,33 +11,36 @@ use App\Models\Pelanggan;
 class BayarController extends Controller
 {
     public function createBayar(){
-        // $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
+        $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
 
-        // if (Auth::user()->roles_id == 1){
-        //     $bayar = Bayar::with("desa")
-        //     ->with("operator")
-        //     ->with("pelanggan")->get();
+        if (Auth::user()->roles_id == 1){
+            $bayar = Bayar::with("desa")
+            ->with("operator")
+            ->with("pelanggan")->get();
 
-        // } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
-        //     $bayar = Bayar::with("desa")
-        //     ->with("operator")
-        //     ->with("pelanggan")
-        //     ->where("desa_id",Auth::user()->desa_id)->get();
+        } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
+            $bayar = Bayar::with("desa")
+            ->with("operator")
+            ->with("pelanggan")
+            ->where("desa_id",Auth::user()->desa_id)->get();
 
-        // } else if(Auth::user()->roles_id == 5){
-        //     $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
-        //     // dd($id_pelanggan->pelanggan_id);
+        } else if(Auth::user()->roles_id == 5){
+            $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
+            // dd($id_pelanggan->pelanggan_id);
             
-        //     $bayar = Bayar::with("desa")
-        //     ->with("operator")
-        //     ->with("pelanggan")
-        //     ->where("desa_id",Auth::user()->desa_id)
-        //     ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
-        // }
-        $bayar = Bayar::with("desa")
-        ->with("operator")
-        ->with("pelanggan")->get();
+            $bayar = Bayar::with("desa")
+            ->with("operator")
+            ->with("pelanggan")
+            ->where("desa_id",Auth::user()->desa_id)
+            ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
+        }
+
+
+        // $bayar = Bayar::with("desa")
+        // ->with("operator")
+        // ->with("pelanggan")->get();
         // dd($jabatan);
+
         return response([
             'data'=> $bayar
         ]);
@@ -45,10 +48,15 @@ class BayarController extends Controller
 
     public function viewBayar($id){
         $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
-        $bayar = Bayar::find($id);
+        $bayar = Bayar::where("bayar_id", $id)->with("desa")
+        ->with("operator")
+        ->with("pelanggan")->first();
+        
+        
+        // find($id);
         // dd($jabatan);
         return response([
-            'message'=>'Successfully Add New Bayar.',
+            // 'message'=>'Successfully Add New Bayar.',
             'data'=> $bayar
         ]);
     }

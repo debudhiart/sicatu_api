@@ -11,28 +11,26 @@ use App\Models\Pelanggan;
 class KeluhanController extends Controller
 {
     public function createKeluhan(){
-        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
 
-        // if (Auth::user()->roles_id == 1){
-        //     $keluhan = Keluhan::with("desa")
-        //     ->get();
+        if (Auth::user()->roles_id == 1){
+            $keluhan = Keluhan::with("desa")->with("pelanggan")
+            ->get();
 
-        // } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4){
-        //     $keluhan = Keluhan::with("desa")
-        //     ->where("desa_id",Auth::user()->desa_id)->get();
+        } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 4){
+            $keluhan = Keluhan::with("desa")->with("pelanggan")
+            ->where("desa_id",Auth::user()->desa_id)->get();
 
-        // }else if(Auth::user()->roles_id == 5){
-        //     $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
+        }else if(Auth::user()->roles_id == 5){
+            $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
             
-        //     $keluhan = Keluhan::
-        //     with("desa")
-        //     ->where("desa_id",Auth::user()->desa_id)
-        //     ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
-        // }
+            $keluhan = Keluhan::
+            with("desa")->with("pelanggan")
+            ->where("desa_id",Auth::user()->desa_id)
+            ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
+        }
 
-
-
-        $keluhan = Keluhan::with("desa")->with("pelanggan")->get();
+        // $keluhan = Keluhan::with("desa")->with("pelanggan")->get();
         // dd($jabatan);
         return response([
             'data'=> $keluhan
@@ -41,7 +39,7 @@ class KeluhanController extends Controller
 
     public function viewKeluhan($id){
         $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $keluhan = Keluhan::find($id);
+        $keluhan = Keluhan::where("keluhan_id", $id)->with("desa")->with("pelanggan")->first();
         // dd($jabatan);
         return response([
             'data'=> $keluhan

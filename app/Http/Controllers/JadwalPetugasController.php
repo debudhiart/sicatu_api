@@ -12,38 +12,38 @@ class JadwalPetugasController extends Controller
 {
     public function createJadwalPetugas(){
 
-        $jadwalPetugas = JadwalPetugas::with("desa")->with("petugas")->get();
-        // dd($jabatan);
-        return response([
-            'success'=> true,
-            'data'=> $jadwalPetugas
-        ], 200);
-        
-        // ----- Code view yang bener
-        // $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        // if (Auth::user()->roles_id == 1){
-        //     $jadwalPetugas = JadwalPetugas::all();
-
-        // } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 5){
-        //     $jadwalPetugas = JadwalPetugas::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
-
-        // } else if(Auth::user()->roles_id == 4){
-        //     $id_petugas = Petugas::where("users_id", Auth::user()->users_id)->first();
-        //     // dd(Auth::user()->desa_id);
-            
-        //     $jadwalPetugas = JadwalPetugas::with("desa")
-        //     ->where("desa_id",Auth::user()->desa_id)
-        //     ->where("petugas_id", $id_petugas->petugas_id)->get();
-        // }
+        // $jadwalPetugas = JadwalPetugas::with("desa")->with("petugas")->get();
         // // dd($jabatan);
         // return response([
+        //     'success'=> true,
         //     'data'=> $jadwalPetugas
-        // ]);
+        // ], 200);
+        
+        // ----- Code view yang bener
+        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        if (Auth::user()->roles_id == 1){
+            $jadwalPetugas = JadwalPetugas::with("desa")->with("petugas")->get();
+
+        } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3 || Auth::user()->roles_id == 5){
+            $jadwalPetugas = JadwalPetugas::with("desa")->with("petugas")->where("desa_id",Auth::user()->desa_id)->get();
+
+        } else if(Auth::user()->roles_id == 4){
+            $petugas_id = Petugas::where("users_id", Auth::user()->users_id)->first();
+            // dd($petugas_id);
+            
+            $jadwalPetugas = JadwalPetugas::with("desa")->with("petugas")
+            ->where("desa_id",Auth::user()->desa_id)
+            ->where("petugas_id", $petugas_id->petugas_id)->get();
+        }
+        // dd($jadwalPetugas);
+        return response([
+            'data'=> $jadwalPetugas
+        ]);
     }
 
     public function viewJadwalPetugas($id){
         $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
-        $jadwalPetugas = JadwalPetugas::find($id);
+        $jadwalPetugas = JadwalPetugas::where("jadwal_petugas_id", $id)->with("desa")->with("petugas")->first();
         // dd($jabatan);
         return response([
             'data'=> $jadwalPetugas

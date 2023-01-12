@@ -51,11 +51,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class, "roles_id", "roles_id");
-
     }
     public function desa(){
         return $this->belongsTo(Desa::class, "desa_id", "desa_id");
-
     }
     public function petugas(){
         return $this->hasOne(Petugas::class,"users_id", "users_id") ;

@@ -12,37 +12,36 @@ class JadwalPelangganController extends Controller
 {
     public function createJadwalPelanggan(){
 
-        $jadwalPelanggan = JadwalPelanggan::with("desa")->with("pelanggan")->get();
-        // dd($jabatan);
-        return response([
-            'success'=> true,
-            'data'=> $jadwalPelanggan
-        ], 200);
-        
-        // ----- Code view yang bener
-
-
-        // $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
-        // if (Auth::user()->roles_id == 1){
-        //     $jadwalPelanggan = JadwalPelanggan::with("desa")->get();
-        // } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3){
-        //     $jadwalPelanggan = JadwalPelanggan::with("desa")->where("desa_id",Auth::user()->desa_id)->get();
-        // } else if(Auth::user()->roles_id == 5){
-        //     $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
-            
-        //     $jadwalPelanggan = JadwalPelanggan::with("desa")
-        //     ->where("desa_id",Auth::user()->desa_id)
-        //     ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
-        // }
+        // $jadwalPelanggan = JadwalPelanggan::with("desa")->with("pelanggan")->get();
         // // dd($jabatan);
         // return response([
+        //     'success'=> true,
         //     'data'=> $jadwalPelanggan
-        // ]);
+        // ], 200);
+        
+        
+        // ----- Code view yang bener
+        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        if (Auth::user()->roles_id == 1){
+            $jadwalPelanggan = JadwalPelanggan::with("desa")->with("pelanggan")->get();
+        } else if(Auth::user()->roles_id == 2 || Auth::user()->roles_id == 3|| Auth::user()->roles_id == 4){
+            $jadwalPelanggan = JadwalPelanggan::with("desa")->with("pelanggan")->where("desa_id",Auth::user()->desa_id)->get();
+        } else if(Auth::user()->roles_id == 5){
+            $id_pelanggan = Pelanggan::where("users_id", Auth::user()->users_id)->first();
+            
+            $jadwalPelanggan = JadwalPelanggan::with("desa")
+            ->where("desa_id",Auth::user()->desa_id)
+            ->where("pelanggan_id", $id_pelanggan->pelanggan_id)->get();
+        }
+        // dd($jabatan);
+        return response([
+            'data'=> $jadwalPelanggan
+        ]);
     }
 
     public function viewJadwalPelanggan($id){
-        $this-> authorize('super-admin-operator-perangkat-desa-pelanggan');
-        $jadwalPelanggan = JadwalPelanggan::find($id);
+        $this-> authorize('super-admin-operator-perangkat-desa-petugas-pelanggan');
+        $jadwalPelanggan = JadwalPelanggan::where("jadwal_pelanggan_id", $id)->with("desa")->with("pelanggan")->first();
         // dd($jabatan);
         return response([
             'data'=> $jadwalPelanggan
